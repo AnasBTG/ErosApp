@@ -30,21 +30,35 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
         {
+            /*
+            Without Using AutoMapper Queryable
+
             var users = await _userRepository.GetUsersAsync();
 
             var usersToReturn = _mapper.Map<IEnumerable<MemberDto>>(users);
 
-            return Ok(usersToReturn);
+            return Ok(usersToReturn); 
+            */
+
+            var users = await _userRepository.GetMembersAsync();
+
+            return Ok(users);
         }
 
         [HttpGet("{username}")]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
+            /*
+            Without Using AutoMapper Queryable
+
             var user = await _userRepository.GetUserByUsernameAsync(username);
 
             var userToReturn = _mapper.Map<MemberDto>(user);
 
-            return userToReturn;
+            return userToReturn; 
+            */
+
+            return await _userRepository.GetMemberAsync(username);
         }
     }
 }
